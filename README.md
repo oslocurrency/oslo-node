@@ -14,9 +14,9 @@
 
 ---
 
-### What is Nano?
+### What is Oslo?
 
-Nano is a digital payment protocol designed to be accessible and lightweight, with a focus on removing inefficiencies present in other cryptocurrencies. With ultrafast transactions and zero fees on a secure, green and decentralized network, this makes Nano ideal for everyday transactions.
+Oslo is a digital payment protocol designed to be accessible and lightweight, with a focus on removing inefficiencies present in other cryptocurrencies. With ultrafast transactions and zero fees on a secure, green and decentralized network, this makes Oslo ideal for everyday transactions.
 
 ---
 
@@ -34,7 +34,7 @@ Other documentation details can be found at https://docs.nano.org.
 
 ### Links & Resources
 
-* [Nano Website](https://nano.org)
+* [Oslo Website](https://nano.org)
 * [Documentation](https://docs.nano.org)
 * [Discord Chat](https://chat.nano.org/)
 * [Reddit](https://reddit.com/r/nanocurrency)
@@ -52,4 +52,4 @@ Please see the [contributors guide](https://docs.nano.org/protocol-design/overvi
 ### Contact us
 
 We want to hear about any trouble, success, delight, or pain you experience when
-using Nano. Let us know by [filing an issue](https://github.com/nanocurrency/nano-node/issues), joining us on [Reddit](https://reddit.com/r/nanocurrency), or joining us on [Discord](https://chat.nano.org/).
+using Oslo. Let us know by [filing an issue](https://github.com/nanocurrency/nano-node/issues), joining us on [Reddit](https://reddit.com/r/nanocurrency), or joining us on [Discord](https://chat.nano.org/).
