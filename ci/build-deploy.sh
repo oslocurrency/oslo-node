@@ -21,7 +21,7 @@ fi
 
 cmake \
     -G'Unix Makefiles' \
-    -DACTIVE_NETWORK=nano_${NETWORK_CFG}_network \
+    -DACTIVE_NETWORK=oslo_${NETWORK_CFG}_network \
     -DOSLO_POW_SERVER=ON \
     -DOSLO_GUI=ON \
     -DOSLO_ROCKSDB=ON \

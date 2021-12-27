@@ -17,7 +17,7 @@ cmake .. ^
   -DQt5_DIR="c:\qt\5.13.1\msvc2017_64\lib\cmake\Qt5" ^
   -DOSLO_GUI=ON ^
   -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ^
-  -DACTIVE_NETWORK=nano_%NETWORK_CFG%_network ^
+  -DACTIVE_NETWORK=oslo_%NETWORK_CFG%_network ^
   -DOSLO_SIMD_OPTIMIZATIONS=TRUE ^
   -Dgtest_force_shared_crt=on ^
   -DBoost_NO_SYSTEM_PATHS=TRUE ^

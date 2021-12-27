@@ -4,9 +4,9 @@ After=network.target
 
 [Service]
 Type=simple
-User=nanocurrency
-WorkingDirectory=/var/nanocurrency/Oslo
-ExecStart=/usr/bin/nano_node --daemon
+User=oslocurrency
+WorkingDirectory=/var/oslocurrency/Oslo
+ExecStart=/usr/bin/oslo_node --daemon
 Restart=on-failure
 
 [Install]

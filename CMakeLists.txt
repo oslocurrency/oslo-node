@@ -18,7 +18,7 @@ endif ()
 # needs to be set before project
 set (CMAKE_OSX_DEPLOYMENT_TARGET 10.12 CACHE STRING "")
 
-project (nano-node)
+project (oslo-node)
 
 # Get the latest abbreviated commit hash of the working branch
 execute_process(
@@ -86,8 +86,8 @@ option(OSLO_SIMD_OPTIMIZATIONS "Enable CPU-specific SIMD optimizations (SSE/AVX 
 option(ENABLE_AES "Enable AES optimizations (enabled by default with OSLO_SIMD_OPTIMIZATIONS, set OFF to disable" ON)
 option(ENABLE_AVX2 "Enable AVX2 optimizations" OFF)
 
-SET (ACTIVE_NETWORK nano_live_network CACHE STRING "Selects which network parameters are used")
-set_property (CACHE ACTIVE_NETWORK PROPERTY STRINGS nano_test_network nano_beta_network nano_live_network)
+SET (ACTIVE_NETWORK oslo_live_network CACHE STRING "Selects which network parameters are used")
+set_property (CACHE ACTIVE_NETWORK PROPERTY STRINGS oslo_test_network oslo_beta_network oslo_live_network)
 
 if(NOT CMAKE_BUILD_TYPE)
 	set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel." FORCE)
@@ -273,8 +273,8 @@ endif ()
 include_directories(cpptoml/include)
 add_subdirectory(crypto/ed25519-donna)
 
-add_subdirectory(nano/ipc_flatbuffers_lib)
-add_subdirectory(nano/ipc_flatbuffers_test)
+add_subdirectory(oslo/ipc_flatbuffers_lib)
+add_subdirectory(oslo/ipc_flatbuffers_test)
 
 set (UPNPC_BUILD_SHARED OFF CACHE BOOL "")
 add_subdirectory (miniupnp/miniupnpc EXCLUDE_FROM_ALL)
@@ -402,19 +402,19 @@ add_library (blake2
 target_compile_definitions(blake2 PRIVATE -D__SSE2__)
 
 if (OSLO_POW_SERVER)
-	add_subdirectory(nano-pow-server)
+	add_subdirectory(oslo-pow-server)
 endif ()
-add_subdirectory(nano/crypto_lib)
-add_subdirectory(nano/secure)
-add_subdirectory(nano/lib)
-add_subdirectory(nano/node)
-add_subdirectory(nano/nano_node)
-add_subdirectory(nano/rpc)
-add_subdirectory(nano/nano_rpc)
+add_subdirectory(oslo/crypto_lib)
+add_subdirectory(oslo/secure)
+add_subdirectory(oslo/lib)
+add_subdirectory(oslo/node)
+add_subdirectory(oslo/oslo_node)
+add_subdirectory(oslo/rpc)
+add_subdirectory(oslo/oslo_rpc)
 
 if (OSLO_FUZZER_TEST)
 	if (NOT WIN32)
-		add_subdirectory (nano/fuzzer_test)
+		add_subdirectory (oslo/fuzzer_test)
 	else ()
 		message (WARNING "Fuzzing is not supported on Windows")
 	endif ()
@@ -433,7 +433,7 @@ if (OSLO_TEST OR RAIBLOCKS_TEST)
 		set (gtest_force_shared_crt OFF)
 	endif()
 
-	add_subdirectory(nano/load_test)
+	add_subdirectory(oslo/load_test)
 
 	add_subdirectory (gtest/googletest)
 	# FIXME: This fixes gtest include directories without modifying gtest's
@@ -442,9 +442,9 @@ if (OSLO_TEST OR RAIBLOCKS_TEST)
 	set_target_properties(gtest PROPERTIES INTERFACE_INCLUDE_DIRECTORIES
 		"${CMAKE_SOURCE_DIR}/gtest/googletest/include")
 
-	add_subdirectory(nano/core_test)
-	add_subdirectory(nano/rpc_test)
-	add_subdirectory(nano/slow_test)
+	add_subdirectory(oslo/core_test)
+	add_subdirectory(oslo/rpc_test)
+	add_subdirectory(oslo/slow_test)
 endif ()
 if (OSLO_GUI OR RAIBLOCKS_GUI)
 	install (FILES ${PROJECT_BINARY_DIR}/config-node.toml.sample DESTINATION .)
@@ -458,11 +458,11 @@ if (OSLO_GUI OR RAIBLOCKS_GUI)
 	find_package (Qt5 COMPONENTS Core Gui Widgets Test ${PLATFORM_QT_PACKAGES})
 
 	add_library (qt
-		nano/qt/qt.cpp
-		nano/qt/qt.hpp)
+		oslo/qt/qt.cpp
+		oslo/qt/qt.hpp)
 
 	target_link_libraries(qt
-		node secure nano_lib libminiupnpc-static Qt5::Gui Qt5::Widgets)
+		node secure oslo_lib libminiupnpc-static Qt5::Gui Qt5::Widgets)
 
 	target_compile_definitions(qt
 		PRIVATE
@@ -476,55 +476,55 @@ if (OSLO_GUI OR RAIBLOCKS_GUI)
 	endif ()
 
 	if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-		set (PLATFORM_WALLET_SOURCE nano/nano_wallet/plat/default/icon.cpp)
+		set (PLATFORM_WALLET_SOURCE oslo/oslo_wallet/plat/default/icon.cpp)
 	elseif (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-		set (PLATFORM_WALLET_SOURCE nano/nano_wallet/plat/windows/icon.cpp Oslo.rc)
+		set (PLATFORM_WALLET_SOURCE oslo/oslo_wallet/plat/windows/icon.cpp Oslo.rc)
 	elseif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-		set (PLATFORM_WALLET_SOURCE nano/nano_wallet/plat/default/icon.cpp)
+		set (PLATFORM_WALLET_SOURCE oslo/oslo_wallet/plat/default/icon.cpp)
 	elseif (${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD")
-		set (PLATFORM_WALLET_SOURCE nano/nano_wallet/plat/default/icon.cpp)
+		set (PLATFORM_WALLET_SOURCE oslo/oslo_wallet/plat/default/icon.cpp)
 	else ()
 		error ("Unknown platform: ${CMAKE_SYSTEM_NAME}")
 	endif ()
 
 	qt5_add_resources(RES resources.qrc)
 
-	add_executable (nano_wallet ${PLATFORM_GUI_TARGET_PROPERTIES}
+	add_executable (oslo_wallet ${PLATFORM_GUI_TARGET_PROPERTIES}
 		${PLATFORM_WALLET_SOURCE}
-		nano/nano_wallet/entry.cpp
-		nano/nano_wallet/icon.hpp
+		oslo/oslo_wallet/entry.cpp
+		oslo/oslo_wallet/icon.hpp
 		${RES})
 
-	target_link_libraries (nano_wallet
+	target_link_libraries (oslo_wallet
 		rpc
 		node
 		qt)
 
-	target_compile_definitions(nano_wallet
+	target_compile_definitions(oslo_wallet
 		PRIVATE
 			-DBOOST_PROCESS_SUPPORTED=${BOOST_PROCESS_SUPPORTED})
 
 	if (WIN32)
-		target_link_libraries (nano_wallet Qt5::WinExtras)
-		# nano_wallet.com executable for Windows console
-		add_executable(nano_wallet_com
-			nano/nano_wallet/entry_com.cpp)
-		target_link_libraries (nano_wallet_com
+		target_link_libraries (oslo_wallet Qt5::WinExtras)
+		# oslo_wallet.com executable for Windows console
+		add_executable(oslo_wallet_com
+			oslo/oslo_wallet/entry_com.cpp)
+		target_link_libraries (oslo_wallet_com
 			node)
-		set_target_properties (nano_wallet_com PROPERTIES COMPILE_FLAGS "-DBOOST_ASIO_HAS_STD_ARRAY=1" OUTPUT_NAME "nano_wallet" SUFFIX ".com")
+		set_target_properties (oslo_wallet_com PROPERTIES COMPILE_FLAGS "-DBOOST_ASIO_HAS_STD_ARRAY=1" OUTPUT_NAME "oslo_wallet" SUFFIX ".com")
 	endif()
 
 	add_executable (qt_system
-		nano/qt_system/entry.cpp)
+		oslo/qt_system/entry.cpp)
 
 	target_link_libraries (qt_system qt node Qt5::Gui Qt5::Widgets)
 
-	set_target_properties (qt nano_wallet qt_system PROPERTIES COMPILE_FLAGS "-DQT_NO_KEYWORDS -DBOOST_ASIO_HAS_STD_ARRAY=1")
+	set_target_properties (qt oslo_wallet qt_system PROPERTIES COMPILE_FLAGS "-DQT_NO_KEYWORDS -DBOOST_ASIO_HAS_STD_ARRAY=1")
 
 	if (OSLO_TEST OR RAIBLOCKS_TEST)
 		add_executable (qt_test
-			nano/qt_test/entry.cpp
-			nano/qt_test/qt.cpp)
+			oslo/qt_test/entry.cpp
+			oslo/qt_test/qt.cpp)
 
 		target_link_libraries(qt_test gtest gtest_main qt Qt5::Test)
 
@@ -534,9 +534,9 @@ if (OSLO_GUI OR RAIBLOCKS_GUI)
 	if (APPLE)
 		set (CPACK_GENERATOR "DragNDrop")
 		CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/Info.plist.in ${CMAKE_SOURCE_DIR}/Info.plist @ONLY)
-		install (TARGETS nano_wallet DESTINATION Oslo.app/Contents/MacOS)
-		install (TARGETS nano_node DESTINATION Oslo.app/Contents/MacOS)
-		install (TARGETS nano_rpc DESTINATION Oslo.app/Contents/MacOS)
+		install (TARGETS oslo_wallet DESTINATION Oslo.app/Contents/MacOS)
+		install (TARGETS oslo_node DESTINATION Oslo.app/Contents/MacOS)
+		install (TARGETS oslo_rpc DESTINATION Oslo.app/Contents/MacOS)
 		install (FILES Info.plist DESTINATION Oslo.app/Contents)
 		install (FILES qt.conf DESTINATION Oslo.app/Contents/Resources)
 		install (DIRECTORY ${Qt5_DIR}/../../QtCore.framework DESTINATION Oslo.app/Contents/Frameworks)
@@ -560,8 +560,8 @@ if (OSLO_GUI OR RAIBLOCKS_GUI)
 			install (FILES ${Boost_LIB_DIR}/libboost_atomic.dylib DESTINATION Oslo.app/Contents/boost/lib)
 		endif()
 		if (OSLO_POW_SERVER)
-			install (TARGETS nano_pow_server DESTINATION Oslo.app/Contents/MacOS)
-			install (DIRECTORY ${PROJECT_SOURCE_DIR}/nano-pow-server/public DESTINATION Oslo.app/Contents/MacOS)
+			install (TARGETS oslo_pow_server DESTINATION Oslo.app/Contents/MacOS)
+			install (DIRECTORY ${PROJECT_SOURCE_DIR}/oslo-pow-server/public DESTINATION Oslo.app/Contents/MacOS)
 		endif()
 		install (FILES Oslo.icns DESTINATION Oslo.app/Contents/Resources)
 	elseif (WIN32)
@@ -572,21 +572,21 @@ if (OSLO_GUI OR RAIBLOCKS_GUI)
 		endif ()
 		set (CPACK_NSIS_EXTRA_INSTALL_COMMANDS "ExecWait '\\\"$INSTDIR\\\\${WIN_REDIST}\\\" /quiet /norestart'
 												WriteRegDWORD HKLM 'SYSTEM\\\\CurrentControlSet\\\\Services\\\\EventLog\\\\Oslo\\\\Oslo' 'TypesSupported' '0x7'
-												WriteRegStr HKLM 'SYSTEM\\\\CurrentControlSet\\\\Services\\\\EventLog\\\\Oslo\\\\Oslo' 'EventMessageFile' '$INSTDIR\\\\nano_wallet.exe'")
+												WriteRegStr HKLM 'SYSTEM\\\\CurrentControlSet\\\\Services\\\\EventLog\\\\Oslo\\\\Oslo' 'EventMessageFile' '$INSTDIR\\\\oslo_wallet.exe'")
 		set (CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "DeleteRegKey HKLM 'SYSTEM\\\\CurrentControlSet\\\\Services\\\\EventLog\\\\Oslo'")
-		set (CPACK_PACKAGE_INSTALL_DIRECTORY "nanocurrency")
+		set (CPACK_PACKAGE_INSTALL_DIRECTORY "oslocurrency")
 		set (CPACK_NSIS_MUI_ICON ${CMAKE_SOURCE_DIR}/Oslo.ico)
 		set (CPACK_NSIS_DISPLAY_NAME "Oslo")
-		set (CPACK_PACKAGE_NAME "nano-node")
+		set (CPACK_PACKAGE_NAME "oslo-node")
 		set (CPACK_NSIS_PACKAGE_NAME "Oslo")
-		set (CPACK_NSIS_URL_INFO_ABOUT "https://nano.org")
-		set (CPACK_NSIS_CONTACT "info@nano.org")
-		set (CPACK_NSIS_MENU_LINKS "nano_wallet.exe" "Oslo Wallet" "https://nano.org" "Oslo website")
+		set (CPACK_NSIS_URL_INFO_ABOUT "https://oslo.org")
+		set (CPACK_NSIS_CONTACT "info@oslo.org")
+		set (CPACK_NSIS_MENU_LINKS "oslo_wallet.exe" "Oslo Wallet" "https://oslo.org" "Oslo website")
 		set (CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL ON)
 		get_target_property (Qt5WindowsPlugin Qt5::QWindowsIntegrationPlugin LOCATION)
 		get_filename_component (Qt5_bin_DIR ${Qt5_DIR}/../../../bin ABSOLUTE)
-		install (TARGETS nano_wallet DESTINATION .)
-		install (TARGETS nano_wallet_com DESTINATION .)
+		install (TARGETS oslo_wallet DESTINATION .)
+		install (TARGETS oslo_wallet_com DESTINATION .)
 		if (OSLO_SHARED_BOOST)
 			foreach(boost_lib IN LISTS Boost_LIBRARIES)
 				if (${CMAKE_BUILD_TYPE} MATCHES "Rel")
@@ -605,8 +605,8 @@ if (OSLO_GUI OR RAIBLOCKS_GUI)
 			endforeach(boost_lib)
 		endif()
 		if (OSLO_POW_SERVER)
-			install (TARGETS nano_pow_server DESTINATION .)
-			install (DIRECTORY ${PROJECT_SOURCE_DIR}/nano-pow-server/public DESTINATION .)
+			install (TARGETS oslo_pow_server DESTINATION .)
+			install (DIRECTORY ${PROJECT_SOURCE_DIR}/oslo-pow-server/public DESTINATION .)
 		endif ()
 		install (FILES ${CMAKE_CURRENT_BINARY_DIR}/${WIN_REDIST} DESTINATION .)
 		install (FILES ${Qt5_bin_DIR}/libGLESv2.dll DESTINATION .)
@@ -618,8 +618,8 @@ if (OSLO_GUI OR RAIBLOCKS_GUI)
 	else ()
 		set(CPACK_GENERATOR "TBZ2;DEB")
 		set(CPACK_DEBIAN_PACKAGE_DEPENDS qt5-default)
-		set(CPACK_DEBIAN_PACKAGE_MAINTAINER "russel@nano.org")
-		install(TARGETS nano_wallet
+		set(CPACK_DEBIAN_PACKAGE_MAINTAINER "russel@oslo.org")
+		install(TARGETS oslo_wallet
 				RUNTIME DESTINATION ./bin
 		)
 		if (OSLO_SHARED_BOOST)
@@ -636,8 +636,8 @@ if (OSLO_GUI OR RAIBLOCKS_GUI)
 			install (FILES ${Boost_LIB_DIR}/libboost_atomic.so.${Boost_VERSION_STRING} DESTINATION ./lib)
 		endif()
 		if (OSLO_POW_SERVER)
-			install (TARGETS nano_pow_server DESTINATION ./bin)
-			install (DIRECTORY ${PROJECT_SOURCE_DIR}/nano-pow-server/public DESTINATION ./bin)
+			install (TARGETS oslo_pow_server DESTINATION ./bin)
+			install (DIRECTORY ${PROJECT_SOURCE_DIR}/oslo-pow-server/public DESTINATION ./bin)
 		endif ()
 	endif ()
 endif ()

@@ -43,7 +43,7 @@ jobs:
       - name: Fetch Deps
         run: ci/actions/linux/install_deps.sh
       - name: Build Artifact
-        run: docker run -v ${GITHUB_WORKSPACE}:/workspace nanocurrency/nano-env:gcc /bin/bash -c "cd /workspace && TRAVIS_TAG=${TAG} ci/build-deploy.sh /usr/lib/x86_64-linux-gnu/cmake/Qt5 ${PWD}"
+        run: docker run -v ${GITHUB_WORKSPACE}:/workspace oslocurrency/oslo-env:gcc /bin/bash -c "cd /workspace && TRAVIS_TAG=${TAG} ci/build-deploy.sh /usr/lib/x86_64-linux-gnu/cmake/Qt5 ${PWD}"
       - name: Deploy Artifact
         run: ci/actions/deploy.sh
         env:
@@ -62,7 +62,7 @@ jobs:
         run: git submodule update --init --recursive
       - name: Fetch Deps
         run: ci/actions/linux/install_deps.sh
-      - name: Deploy Docker (nanocurrency/nano)
+      - name: Deploy Docker (oslocurrency/oslo)
         run: TRAVIS_TAG=${TAG} ci/actions/linux/deploy-docker.sh
         env:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}

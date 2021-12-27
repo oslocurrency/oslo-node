@@ -1,4 +1,4 @@
-FROM nanocurrency/nano-env:base
+FROM oslocurrency/oslo-env:base
 
 RUN apt-get install -yqq git
 

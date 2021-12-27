@@ -1,18 +1,18 @@
-Name:                   nanocurrency
+Name:                   oslocurrency
 Version:                @VERSION@ 
 Release:                @RELEASE@%{?dist}
 Summary:                Oslocurrency Daemon
 License:                BSD-2-Clause
-URL:                    https://nano.org/
+URL:                    https://oslo.org/
 Requires(pre):          /usr/sbin/useradd, /usr/bin/getent
 Requires(postun):       /usr/sbin/userdel
 BuildRequires:          make, libstdc++-static, glibc-devel, glibc-headers
-Source:                 nano-%{version}.tar.gz
+Source:                 oslo-%{version}.tar.gz
 
 %description
-This is nanocurrency daemon.  Oslo is a digital currency that is
+This is oslocurrency daemon.  Oslo is a digital currency that is
 peer-to-peer, decentralized, and trustless. This package includes
-the nano daemon, and a service.
+the oslo daemon, and a service.
 
 %prep
 if [ ! -x "$(which cmake)" ]; then
@@ -29,36 +29,36 @@ if test ! -d /usr/local/boost; then
 	echo "Boost should be in /usr/local/boost" >&2
 	exit 1
 fi
-%autosetup -n nano-%{version}
+%autosetup -n oslo-%{version}
 
 %build
 cmake -DCMAKE_VERBOSE_MAKEFILE=ON -DBOOST_ROOT=/usr/local/boost .
-make nano_node %{?_smp_mflags}
+make oslo_node %{?_smp_mflags}
 
 %install
 if [ ! %{buildroot} = "/" ]; then %{__rm} -rf %{buildroot}; fi
 mkdir -p %{buildroot}/usr/bin
 mkdir -p %{buildroot}/etc/systemd/system/
-cp nano_node %{buildroot}/usr/bin/nano_node
-cp nano_rpc %{buildroot}/usr/bin/nano_rpc
-cp etc/systemd/nanocurrency.service %{buildroot}/etc/systemd/system/nanocurrency.service
+cp oslo_node %{buildroot}/usr/bin/oslo_node
+cp oslo_rpc %{buildroot}/usr/bin/oslo_rpc
+cp etc/systemd/oslocurrency.service %{buildroot}/etc/systemd/system/oslocurrency.service
 
 %clean
 if [ ! %{buildroot} = "/" ]; then %{__rm} -rf %{buildroot}; fi
 
 %files
 %defattr(755,root,root)
-%{_bindir}/nano_node
-%attr(644,root,root) /etc/systemd/system/nanocurrency.service
+%{_bindir}/oslo_node
+%attr(644,root,root) /etc/systemd/system/oslocurrency.service
 
 %pre
 PATH="/usr/bin:/usr/sbin:/bin:/sbin:${PATH}"; export PATH
-mkdir -p /var/nanocurrency/Oslo
-getent group nanocurrency >/dev/null || groupadd --system nanocurrency || exit 1
-getent passwd nanocurrency >/dev/null || useradd --system --create-home --home-dir /var/nanocurrency --shell /bin/bash --comment "Oslocurrency Daemon user" --gid nanocurrency nanocurrency || exit 1
-chown -R nanocurrency:nanocurrency /var/nanocurrency
-chmod 700 /var/nanocurrency
+mkdir -p /var/oslocurrency/Oslo
+getent group oslocurrency >/dev/null || groupadd --system oslocurrency || exit 1
+getent passwd oslocurrency >/dev/null || useradd --system --create-home --home-dir /var/oslocurrency --shell /bin/bash --comment "Oslocurrency Daemon user" --gid oslocurrency oslocurrency || exit 1
+chown -R oslocurrency:oslocurrency /var/oslocurrency
+chmod 700 /var/oslocurrency
 
 %postun
 PATH="/usr/bin:/usr/sbin:/bin:/sbin:${PATH}"; export PATH
-userdel nanocurrency >/dev/null 2>/dev/null || :
+userdel oslocurrency >/dev/null 2>/dev/null || :

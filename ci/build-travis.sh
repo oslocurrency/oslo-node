@@ -9,18 +9,18 @@ set -o xtrace
 OS=`uname`
 
 # This is to prevent out of scope access in async_write from asio which is not picked up by static analysers
-if [[ $(grep -rl --exclude="*asio.hpp" "asio::async_write" ./nano) ]]; then
-    echo "Using boost::asio::async_write directly is not permitted (except in nano/lib/asio.hpp). Use nano::async_write instead"
+if [[ $(grep -rl --exclude="*asio.hpp" "asio::async_write" ./oslo) ]]; then
+    echo "Using boost::asio::async_write directly is not permitted (except in oslo/lib/asio.hpp). Use oslo::async_write instead"
     exit 1
 fi
 
 # prevent unsolicited use of std::lock_guard & std::unique_lock outside of allowed areas
-if [[ $(grep -rl --exclude={"*random_pool.cpp","*random_pool.hpp","*random_pool_shuffle.hpp","*locks.hpp","*locks.cpp"} "std::unique_lock\|std::lock_guard\|std::condition_variable" ./nano) ]]; then
-    echo "Using std::unique_lock, std::lock_guard or std::condition_variable is not permitted (except in nano/lib/locks.hpp and non-nano dependent libraries). Use the nano::* versions instead"
+if [[ $(grep -rl --exclude={"*random_pool.cpp","*random_pool.hpp","*random_pool_shuffle.hpp","*locks.hpp","*locks.cpp"} "std::unique_lock\|std::lock_guard\|std::condition_variable" ./oslo) ]]; then
+    echo "Using std::unique_lock, std::lock_guard or std::condition_variable is not permitted (except in oslo/lib/locks.hpp and non-oslo dependent libraries). Use the oslo::* versions instead"
     exit 1
 fi
 
-if [[ $(grep -rlP "^\s*assert \(" ./nano) ]]; then
+if [[ $(grep -rlP "^\s*assert \(" ./oslo) ]]; then
     echo "Using assert is not permitted. Use debug_assert instead."
     exit 1
 fi
@@ -63,7 +63,7 @@ fi
 
 cmake \
     -G'Unix Makefiles' \
-    -DACTIVE_NETWORK=nano_test_network \
+    -DACTIVE_NETWORK=oslo_test_network \
     -DOSLO_TEST=ON \
     -DOSLO_GUI=ON \
     -DOSLO_ROCKSDB=ON \

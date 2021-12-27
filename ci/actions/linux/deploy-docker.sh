@@ -3,15 +3,15 @@
 set -e
 
 if [ -n "$DOCKER_PASSWORD" ]; then
-    echo "$DOCKER_PASSWORD" | docker login -u nanoreleaseteam --password-stdin
+    echo "$DOCKER_PASSWORD" | docker login -u osloreleaseteam --password-stdin
 
     scripts="$PWD/ci"
     TRAVIS_BRANCH=`git branch| cut -f2 -d' '`
     if [[ "$GITHUB_WORKFLOW" = "Develop" ]]; then
-        "$scripts"/custom-timeout.sh 30 docker push "nanocurrency/nano-env:base"
-        "$scripts"/custom-timeout.sh 30 docker push "nanocurrency/nano-env:gcc"
-        "$scripts"/custom-timeout.sh 30 docker push "nanocurrency/nano-env:clang"
-        echo "Deployed nano-env"
+        "$scripts"/custom-timeout.sh 30 docker push "oslocurrency/oslo-env:base"
+        "$scripts"/custom-timeout.sh 30 docker push "oslocurrency/oslo-env:gcc"
+        "$scripts"/custom-timeout.sh 30 docker push "oslocurrency/oslo-env:clang"
+        echo "Deployed oslo-env"
         exit 0
     else
         tags=()
@@ -36,7 +36,7 @@ if [ -n "$DOCKER_PASSWORD" ]; then
             echo "Nothing to deploy"
             exit 1
         fi
-        docker_image_name="nanocurrency/nano${network_tag_suffix}"
+        docker_image_name="oslocurrency/oslo${network_tag_suffix}"
         "$scripts"/custom-timeout.sh 30 docker build --build-arg NETWORK="$network" --build-arg CI_BUILD=true --build-arg TRAVIS_TAG="$TRAVIS_TAG" -f docker/node/Dockerfile -t "$docker_image_name" .
         for tag in "${tags[@]}"; do
             # Sanitize docker tag

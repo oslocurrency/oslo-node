@@ -1,4 +1,4 @@
-FROM nanocurrency/nano-env:base
+FROM oslocurrency/oslo-env:base
 
 RUN apt-get update -qq && apt-get install -yqq \
     clang-3.9 lldb-3.9 git

@@ -1,4 +1,4 @@
-FROM nanocurrency/nano-env:base
+FROM oslocurrency/oslo-env:base
 
 RUN apt-get update && apt-get install -yqq software-properties-common && \
     wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
