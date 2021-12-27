@@ -11,7 +11,7 @@
 #include <nano/rpc/rpc.hpp>
 #include <nano/secure/buffer.hpp>
 
-#if NANO_ROCKSDB
+#if OSLO_ROCKSDB
 #include <nano/node/rocksdb/rocksdb.hpp>
 #endif
 
@@ -334,7 +334,7 @@ node_seq (seq)
 			this->distributed_work.cancel (root_a);
 		});
 
-		logger.always_log ("Node starting, version: ", NANO_VERSION_STRING);
+		logger.always_log ("Node starting, version: ", OSLO_VERSION_STRING);
 		logger.always_log ("Build information: ", BUILD_INFO);
 		logger.always_log ("Database backend: ", store.vendor_get ());
 
@@ -1696,7 +1696,7 @@ nano::node_flags const & nano::inactive_node_flag_defaults ()
 
 std::unique_ptr<nano::block_store> nano::make_store (nano::logger_mt & logger, boost::filesystem::path const & path, bool read_only, bool add_db_postfix, nano::rocksdb_config const & rocksdb_config, nano::txn_tracking_config const & txn_tracking_config_a, std::chrono::milliseconds block_processor_batch_max_time_a, nano::lmdb_config const & lmdb_config_a, size_t batch_size, bool backup_before_upgrade, bool use_rocksdb_backend)
 {
-#if NANO_ROCKSDB
+#if OSLO_ROCKSDB
 	auto make_rocksdb = [&logger, add_db_postfix, &path, &rocksdb_config, read_only]() {
 		return std::make_unique<nano::rocksdb_store> (logger, add_db_postfix ? path / "rocksdb" : path, rocksdb_config, read_only);
 	};
@@ -1704,7 +1704,7 @@ std::unique_ptr<nano::block_store> nano::make_store (nano::logger_mt & logger, b
 
 	if (use_rocksdb_backend)
 	{
-#if NANO_ROCKSDB
+#if OSLO_ROCKSDB
 		return make_rocksdb ();
 #else
 		logger.always_log (std::error_code (nano::error_config::rocksdb_enabled_but_not_supported).message ());
@@ -1714,8 +1714,8 @@ std::unique_ptr<nano::block_store> nano::make_store (nano::logger_mt & logger, b
 	}
 	else
 	{
-#if NANO_ROCKSDB
-		/** To use RocksDB in tests make sure the node is built with the cmake variable -DNANO_ROCKSDB=ON and the environment variable TEST_USE_ROCKSDB=1 is set */
+#if OSLO_ROCKSDB
+		/** To use RocksDB in tests make sure the node is built with the cmake variable -DOSLO_ROCKSDB=ON and the environment variable TEST_USE_ROCKSDB=1 is set */
 		static nano::network_constants network_constants;
 		auto use_rocksdb_str = std::getenv ("TEST_USE_ROCKSDB");
 		if (use_rocksdb_str && (boost::lexical_cast<int> (use_rocksdb_str) == 1) && network_constants.is_test_network ())

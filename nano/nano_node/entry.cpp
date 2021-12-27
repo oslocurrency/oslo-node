@@ -22,7 +22,7 @@
 
 // Some builds (mac) fail due to "Boost.Stacktrace requires `_Unwind_Backtrace` function".
 #ifndef _WIN32
-#ifdef NANO_STACKTRACE_BACKTRACE
+#ifdef OSLO_STACKTRACE_BACKTRACE
 #define BOOST_STACKTRACE_USE_BACKTRACE
 #endif
 #ifndef _GNU_SOURCE
@@ -1914,7 +1914,7 @@ int main (int argc, char * const * argv)
 		}
 		else if (vm.count ("version"))
 		{
-			std::cout << "Version " << NANO_VERSION_STRING << "\n"
+			std::cout << "Version " << OSLO_VERSION_STRING << "\n"
 			          << "Build Info " << BUILD_INFO << std::endl;
 		}
 		else

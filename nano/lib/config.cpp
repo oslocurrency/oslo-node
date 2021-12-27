@@ -29,19 +29,19 @@ const char * network_constants::active_network_err_msg = "Invalid network. Valid
 
 uint8_t get_major_node_version ()
 {
-	return boost::numeric_cast<uint8_t> (boost::lexical_cast<int> (NANO_MAJOR_VERSION_STRING));
+	return boost::numeric_cast<uint8_t> (boost::lexical_cast<int> (OSLO_MAJOR_VERSION_STRING));
 }
 uint8_t get_minor_node_version ()
 {
-	return boost::numeric_cast<uint8_t> (boost::lexical_cast<int> (NANO_MINOR_VERSION_STRING));
+	return boost::numeric_cast<uint8_t> (boost::lexical_cast<int> (OSLO_MINOR_VERSION_STRING));
 }
 uint8_t get_patch_node_version ()
 {
-	return boost::numeric_cast<uint8_t> (boost::lexical_cast<int> (NANO_PATCH_VERSION_STRING));
+	return boost::numeric_cast<uint8_t> (boost::lexical_cast<int> (OSLO_PATCH_VERSION_STRING));
 }
 uint8_t get_pre_release_node_version ()
 {
-	return boost::numeric_cast<uint8_t> (boost::lexical_cast<int> (NANO_PRE_RELEASE_VERSION_STRING));
+	return boost::numeric_cast<uint8_t> (boost::lexical_cast<int> (OSLO_PRE_RELEASE_VERSION_STRING));
 }
 
 void force_nano_test_network ()

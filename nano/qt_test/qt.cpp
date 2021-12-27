@@ -71,7 +71,7 @@ TEST (wallet, startup_balance)
 	wallet->needs_balance_refresh = true;
 	wallet->start ();
 	wallet->application.processEvents (QEventLoop::AllEvents);
-	ASSERT_EQ ("Balance: 0 NANO", wallet->self.balance_label->text ().toStdString ());
+	ASSERT_EQ ("Balance: 0 OSLO", wallet->self.balance_label->text ().toStdString ());
 }
 
 TEST (wallet, select_account)

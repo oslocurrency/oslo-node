@@ -8,7 +8,7 @@
 
 namespace nano
 {
-#if NANO_TIMED_LOCKS > 0
+#if OSLO_TIMED_LOCKS > 0
 template <typename Mutex>
 class lock_guard final
 {

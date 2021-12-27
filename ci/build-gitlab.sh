@@ -6,7 +6,7 @@ DISTRO_CFG=""
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
     CPACK_TYPE="TBZ2"
     distro=$(lsb_release -i -c -s|tr '\n' '_')
-    DISTRO_CFG="-DNANO_DISTRO_NAME=${distro}"
+    DISTRO_CFG="-DOSLO_DISTRO_NAME=${distro}"
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     CPACK_TYPE="DragNDrop"
 elif [[ "$OSTYPE" == "cygwin" ]]; then
@@ -17,13 +17,13 @@ elif [[ "$OSTYPE" == "win32" ]]; then
     CPACK_TYPE="NSIS"
 elif [[ "$OSTYPE" == "freebsd"* ]]; then
     CPACK_TYPE="TBZ2"
-    DISTRO_CFG="-DNANO_DISTRO_NAME='freebsd'"
+    DISTRO_CFG="-DOSLO_DISTRO_NAME='freebsd'"
 else
     CPACK_TYPE="TBZ2"
 fi
 
 if [[ ${SIMD} -eq 1 ]]; then
-    SIMD_CFG="-DNANO_SIMD_OPTIMIZATIONS=ON"
+    SIMD_CFG="-DOSLO_SIMD_OPTIMIZATIONS=ON"
     echo SIMD and other optimizations enabled
     echo local CPU:
     cat /proc/cpuinfo # TBD for macOS
@@ -32,11 +32,11 @@ else
 fi
 
 if [[ ${ASAN_INT} -eq 1 ]]; then
-    SANITIZERS="-DNANO_ASAN_INT=ON"
+    SANITIZERS="-DOSLO_ASAN_INT=ON"
 elif [[ ${ASAN} -eq 1 ]]; then
-    SANITIZERS="-DNANO_ASAN=ON"
+    SANITIZERS="-DOSLO_ASAN=ON"
 elif [[ ${TSAN} -eq 1 ]]; then
-    SANITIZERS="-DNANO_TSAN=ON"
+    SANITIZERS="-DOSLO_TSAN=ON"
 else
     SANITIZERS=""
 fi
@@ -68,7 +68,7 @@ run_build() {
     mkdir ${build_dir}
     cd ${build_dir}
     cmake -GNinja \
-       -DNANO_GUI=ON \
+       -DOSLO_GUI=ON \
        -DCMAKE_BUILD_TYPE=${CONFIGURATION} \
        -DCMAKE_VERBOSE_MAKEFILE=ON \
        -DCMAKE_INSTALL_PREFIX="../install" \

@@ -12,7 +12,7 @@ target_link_libraries (nano_node
 	${PLATFORM_LIBS}
 )
 
-if (NANO_STACKTRACE_BACKTRACE)
+if (OSLO_STACKTRACE_BACKTRACE)
 	target_link_libraries(nano_node backtrace)
 endif ()
 
@@ -32,7 +32,7 @@ add_custom_command(TARGET nano_node
 				   COMMAND nano_node --generate_config node > ${PROJECT_BINARY_DIR}/config-node.toml.sample
 				   COMMAND nano_node --generate_config rpc > ${PROJECT_BINARY_DIR}/config-rpc.toml.sample)
 
-if ((NANO_GUI OR RAIBLOCKS_GUI) AND NOT APPLE)
+if ((OSLO_GUI OR RAIBLOCKS_GUI) AND NOT APPLE)
 	if (WIN32)
 		install(TARGETS nano_node
 				RUNTIME DESTINATION .

@@ -1239,10 +1239,10 @@ bool is_using_rocksdb (boost::filesystem::path const & data_path, std::error_cod
 		bool use_rocksdb = config.node.rocksdb_config.enable;
 		if (use_rocksdb)
 		{
-#if !NANO_ROCKSDB
+#if !OSLO_ROCKSDB
 			ec = nano::error_cli::database_write_error;
 #endif
-			return (NANO_ROCKSDB == 1);
+			return (OSLO_ROCKSDB == 1);
 		}
 	}
 	else

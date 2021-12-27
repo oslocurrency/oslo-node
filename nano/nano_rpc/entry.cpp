@@ -145,7 +145,7 @@ int main (int argc, char * const * argv)
 	}
 	else if (vm.count ("version"))
 	{
-		std::cout << "Version " << NANO_VERSION_STRING << "\n"
+		std::cout << "Version " << OSLO_VERSION_STRING << "\n"
 		          << "Build Info " << BUILD_INFO << std::endl;
 	}
 	else

@@ -6,7 +6,7 @@
 #include <future>
 #include <regex>
 
-#if NANO_TIMED_LOCKS > 0
+#if OSLO_TIMED_LOCKS > 0
 namespace
 {
 unsigned num_matches (std::string const & str)
@@ -36,14 +36,14 @@ TEST (locks, no_conflicts)
 	std::mutex lk_mutex;
 	nano::unique_lock<std::mutex> lk (lk_mutex);
 
-	// This could fail if NANO_TIMED_LOCKS is such a low value that the above mutexes are held longer than that before reaching this statement
+	// This could fail if OSLO_TIMED_LOCKS is such a low value that the above mutexes are held longer than that before reaching this statement
 	ASSERT_EQ (ss.str (), "");
 }
 
 TEST (locks, lock_guard)
 {
-	// This test can end up taking a long time, as it sleeps for the NANO_TIMED_LOCKS amount
-	ASSERT_LE (NANO_TIMED_LOCKS, 10000);
+	// This test can end up taking a long time, as it sleeps for the OSLO_TIMED_LOCKS amount
+	ASSERT_LE (OSLO_TIMED_LOCKS, 10000);
 
 	std::stringstream ss;
 	nano::cout_redirect redirect (ss.rdbuf ());
@@ -57,8 +57,8 @@ TEST (locks, lock_guard)
 		t = std::thread ([&mutex, &promise] {
 			nano::lock_guard<std::mutex> guard (mutex);
 			promise.set_value ();
-			// Tries to make sure that the other guard to held for a minimum of NANO_TIMED_LOCKS, may need to increase this for low NANO_TIMED_LOCKS values
-			std::this_thread::sleep_for (std::chrono::milliseconds (NANO_TIMED_LOCKS * 2));
+			// Tries to make sure that the other guard to held for a minimum of OSLO_TIMED_LOCKS, may need to increase this for low OSLO_TIMED_LOCKS values
+			std::this_thread::sleep_for (std::chrono::milliseconds (OSLO_TIMED_LOCKS * 2));
 		});
 	}
 
@@ -75,8 +75,8 @@ TEST (locks, lock_guard)
 
 TEST (locks, unique_lock)
 {
-	// This test can end up taking a long time, as it sleeps for the NANO_TIMED_LOCKS amount
-	ASSERT_LE (NANO_TIMED_LOCKS, 10000);
+	// This test can end up taking a long time, as it sleeps for the OSLO_TIMED_LOCKS amount
+	ASSERT_LE (OSLO_TIMED_LOCKS, 10000);
 
 	std::stringstream ss;
 	nano::cout_redirect redirect (ss.rdbuf ());
@@ -87,13 +87,13 @@ TEST (locks, unique_lock)
 	std::promise<void> promise;
 	std::thread t ([&mutex, &promise] {
 		nano::unique_lock<std::mutex> lk (mutex);
-		std::this_thread::sleep_for (std::chrono::milliseconds (NANO_TIMED_LOCKS));
+		std::this_thread::sleep_for (std::chrono::milliseconds (OSLO_TIMED_LOCKS));
 		lk.unlock ();
 		lk.lock ();
 
 		promise.set_value ();
-		// Tries to make sure that the other guard to held for a minimum of NANO_TIMED_LOCKS, may need to increase this for low NANO_TIMED_LOCKS values
-		std::this_thread::sleep_for (std::chrono::milliseconds (NANO_TIMED_LOCKS * 2));
+		// Tries to make sure that the other guard to held for a minimum of OSLO_TIMED_LOCKS, may need to increase this for low OSLO_TIMED_LOCKS values
+		std::this_thread::sleep_for (std::chrono::milliseconds (OSLO_TIMED_LOCKS * 2));
 	});
 
 	// Wait until the lock_guard has been reached in the other thread

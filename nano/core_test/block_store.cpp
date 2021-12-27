@@ -11,7 +11,7 @@
 
 #include <boost/filesystem.hpp>
 
-#if NANO_ROCKSDB
+#if OSLO_ROCKSDB
 #include <nano/node/rocksdb/rocksdb.hpp>
 #endif
 
@@ -2236,7 +2236,7 @@ TEST (block_store, rocksdb_force_test_env_variable)
 
 	auto mdb_cast = dynamic_cast<nano::mdb_store *> (store.get ());
 
-#if NANO_ROCKSDB
+#if OSLO_ROCKSDB
 	if (value && boost::lexical_cast<int> (value) == 1)
 	{
 		ASSERT_NE (boost::polymorphic_downcast<nano::rocksdb_store *> (store.get ()), nullptr);

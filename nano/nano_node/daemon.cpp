@@ -63,7 +63,7 @@ void nano_daemon::daemon::run (boost::filesystem::path const & data_path, nano::
 			if (!node->init_error ())
 			{
 				auto network_label = node->network_params.network.get_current_network_as_string ();
-				std::cout << "Network: " << network_label << ", version: " << NANO_VERSION_STRING << "\n"
+				std::cout << "Network: " << network_label << ", version: " << OSLO_VERSION_STRING << "\n"
 				          << "Path: " << node->application_path.string () << "\n"
 				          << "Build Info: " << BUILD_INFO << "\n"
 				          << "Database backend: " << node->store.vendor_get () << std::endl;

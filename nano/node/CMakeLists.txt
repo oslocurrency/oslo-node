@@ -1,4 +1,4 @@
-if (NANO_ROCKSDB)
+if (OSLO_ROCKSDB)
 	set (rocksdb_libs ${ROCKSDB_LIBRARIES} ${ZLIB_LIBRARIES})
 	set (rocksdb_sources rocksdb/rocksdb.hpp rocksdb/rocksdb.cpp rocksdb/rocksdb_iterator.hpp rocksdb/rocksdb_txn.hpp rocksdb/rocksdb_txn.cpp)
 endif ()
@@ -8,7 +8,7 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 elseif (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 	set (platform_sources plat/windows/openclapi.cpp)
 	set (psapi_lib Psapi)
-	if (NANO_ROCKSDB)
+	if (OSLO_ROCKSDB)
 		set (rocksdb_libs ${rocksdb_libs} Shlwapi Rpcrt4)
 	endif ()
 elseif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
@@ -170,7 +170,7 @@ target_link_libraries (node
 	${psapi_lib}
 	)
 
-if (NANO_STACKTRACE_BACKTRACE)
+if (OSLO_STACKTRACE_BACKTRACE)
 	target_link_libraries(node backtrace)
 endif ()
 

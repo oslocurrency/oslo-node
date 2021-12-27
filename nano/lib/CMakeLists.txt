@@ -82,7 +82,7 @@ target_link_libraries (nano_lib
 	${CMAKE_DL_LIBS}
 	Boost::boost)
 
-if (NANO_STACKTRACE_BACKTRACE)
+if (OSLO_STACKTRACE_BACKTRACE)
 	target_link_libraries(nano_lib backtrace)
 endif ()
 

@@ -9,9 +9,9 @@ if (${env:artifact} -eq 1) {
         $env:NETWORK_CFG = "live"
         $env:BUILD_TYPE = "Release"
     }
-    $env:NANO_SHARED_BOOST = "ON"
+    $env:OSLO_SHARED_BOOST = "ON"
     $env:ROCKS_LIB = '-DROCKSDB_LIBRARIES="c:\vcpkg\installed\x64-windows-static\lib\rocksdb.lib"'
-    $env:NANO_TEST = "-DNANO_TEST=OFF"
+    $env:OSLO_TEST = "-DOSLO_TEST=OFF"
     $env:TRAVIS_TAG = ${env:TAG}
     
     $env:CI = "-DCI_BUILD=ON"
@@ -26,9 +26,9 @@ else {
         $env:BUILD_TYPE = "Debug"
         $env:ROCKS_LIB = '-DROCKSDB_LIBRARIES="c:\vcpkg\installed\x64-windows-static\debug\lib\rocksdbd.lib"'
     }
-    $env:NANO_SHARED_BOOST = "OFF"
+    $env:OSLO_SHARED_BOOST = "OFF"
     $env:NETWORK_CFG = "test"
-    $env:NANO_TEST = "-DNANO_TEST=ON"
+    $env:OSLO_TEST = "-DOSLO_TEST=ON"
     $env:CI = '-DCI_TEST="1"'
     $env:RUN = "test"
 }

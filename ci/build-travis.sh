@@ -36,11 +36,11 @@ else
 fi
 
 if [[ ${ASAN_INT-0} -eq 1 ]]; then
-    SANITIZERS="-DNANO_ASAN_INT=ON"
+    SANITIZERS="-DOSLO_ASAN_INT=ON"
 elif [[ ${ASAN-0} -eq 1 ]]; then
-    SANITIZERS="-DNANO_ASAN=ON"
+    SANITIZERS="-DOSLO_ASAN=ON"
 elif [[ ${TSAN-0} -eq 1 ]]; then
-    SANITIZERS="-DNANO_TSAN=ON"
+    SANITIZERS="-DOSLO_TSAN=ON"
 else
     SANITIZERS=""
 fi
@@ -51,10 +51,10 @@ if [[ "$OS" == 'Linux' ]]; then
     ROCKSDB="-DROCKSDB_LIBRARIES=/tmp/rocksdb/lib/librocksdb.a \
     -DROCKSDB_INCLUDE_DIRS=/tmp/rocksdb/include"
     if clang --version; then
-        BACKTRACE="-DNANO_STACKTRACE_BACKTRACE=ON \
+        BACKTRACE="-DOSLO_STACKTRACE_BACKTRACE=ON \
         -DBACKTRACE_INCLUDE=</tmp/backtrace.h>"
     else
-        BACKTRACE="-DNANO_STACKTRACE_BACKTRACE=ON"
+        BACKTRACE="-DOSLO_STACKTRACE_BACKTRACE=ON"
     fi
 else
     ROCKSDB=""
@@ -64,15 +64,15 @@ fi
 cmake \
     -G'Unix Makefiles' \
     -DACTIVE_NETWORK=nano_test_network \
-    -DNANO_TEST=ON \
-    -DNANO_GUI=ON \
-    -DNANO_ROCKSDB=ON \
+    -DOSLO_TEST=ON \
+    -DOSLO_GUI=ON \
+    -DOSLO_ROCKSDB=ON \
     ${ROCKSDB} \
-    -DNANO_WARN_TO_ERR=ON \
+    -DOSLO_WARN_TO_ERR=ON \
     -DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
     -DCMAKE_VERBOSE_MAKEFILE=ON \
     -DBOOST_ROOT=/tmp/boost/ \
-    -DNANO_SHARED_BOOST=ON \
+    -DOSLO_SHARED_BOOST=ON \
     -DQt5_DIR=${qt_dir} \
     -DCI_TEST="1" \
     ${BACKTRACE} \

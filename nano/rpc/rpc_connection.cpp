@@ -9,7 +9,7 @@
 
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/predicate.hpp>
-#ifdef NANO_SECURE_RPC
+#ifdef OSLO_SECURE_RPC
 #include <boost/asio/ssl/stream.hpp>
 #endif
 #include <boost/format.hpp>
@@ -175,7 +175,7 @@ void nano::rpc_connection::parse_request (STREAM_TYPE & stream, std::shared_ptr<
 
 template void nano::rpc_connection::read (socket_type &);
 template void nano::rpc_connection::parse_request (socket_type &, std::shared_ptr<boost::beast::http::request_parser<boost::beast::http::empty_body>>);
-#ifdef NANO_SECURE_RPC
+#ifdef OSLO_SECURE_RPC
 template void nano::rpc_connection::read (boost::asio::ssl::stream<socket_type &> &);
 template void nano::rpc_connection::parse_request (boost::asio::ssl::stream<socket_type &> &, std::shared_ptr<boost::beast::http::request_parser<boost::beast::http::empty_body>>);
 #endif

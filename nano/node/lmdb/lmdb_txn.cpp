@@ -10,7 +10,7 @@
 
 // Some builds (mac) fail due to "Boost.Stacktrace requires `_Unwind_Backtrace` function".
 #ifndef _WIN32
-#ifdef NANO_STACKTRACE_BACKTRACE
+#ifdef OSLO_STACKTRACE_BACKTRACE
 #define BOOST_STACKTRACE_USE_BACKTRACE
 #endif
 #ifndef _GNU_SOURCE

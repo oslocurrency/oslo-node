@@ -20,11 +20,11 @@ namespace filesystem
 /**
 * Returns build version information
 */
-const char * const NANO_VERSION_STRING = xstr (TAG_VERSION_STRING);
-const char * const NANO_MAJOR_VERSION_STRING = xstr (MAJOR_VERSION_STRING);
-const char * const NANO_MINOR_VERSION_STRING = xstr (MINOR_VERSION_STRING);
-const char * const NANO_PATCH_VERSION_STRING = xstr (PATCH_VERSION_STRING);
-const char * const NANO_PRE_RELEASE_VERSION_STRING = xstr (PRE_RELEASE_VERSION_STRING);
+const char * const OSLO_VERSION_STRING = xstr (TAG_VERSION_STRING);
+const char * const OSLO_MAJOR_VERSION_STRING = xstr (MAJOR_VERSION_STRING);
+const char * const OSLO_MINOR_VERSION_STRING = xstr (MINOR_VERSION_STRING);
+const char * const OSLO_PATCH_VERSION_STRING = xstr (PATCH_VERSION_STRING);
+const char * const OSLO_PRE_RELEASE_VERSION_STRING = xstr (PRE_RELEASE_VERSION_STRING);
 
 const char * const BUILD_INFO = xstr (GIT_COMMIT_HASH BOOST_COMPILER) " \"BOOST " xstr (BOOST_VERSION) "\" BUILT " xstr (__DATE__);
 

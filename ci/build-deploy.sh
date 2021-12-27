@@ -22,15 +22,15 @@ fi
 cmake \
     -G'Unix Makefiles' \
     -DACTIVE_NETWORK=nano_${NETWORK_CFG}_network \
-    -DNANO_POW_SERVER=ON \
-    -DNANO_GUI=ON \
-    -DNANO_ROCKSDB=ON \
+    -DOSLO_POW_SERVER=ON \
+    -DOSLO_GUI=ON \
+    -DOSLO_ROCKSDB=ON \
     -DROCKSDB_LIBRARIES=/tmp/rocksdb/lib/librocksdb.a \
     -DROCKSDB_INCLUDE_DIRS=/tmp/rocksdb/include \
     -DCMAKE_BUILD_TYPE=${CONFIGURATION} \
     -DCMAKE_VERBOSE_MAKEFILE=ON \
     -DBOOST_ROOT=/tmp/boost/ \
-    -DNANO_SHARED_BOOST=ON \
+    -DOSLO_SHARED_BOOST=ON \
     -DQt5_DIR=${qt_dir} \
     -DCI_BUILD=true \
     ..

@@ -75,7 +75,7 @@ wallet (wallet_a)
 	{
 		network[0] = std::toupper (network[0]);
 	}
-	version = new QLabel (boost::str (boost::format ("%1% %2% network") % NANO_VERSION_STRING % network).c_str ());
+	version = new QLabel (boost::str (boost::format ("%1% %2% network") % OSLO_VERSION_STRING % network).c_str ());
 
 	self_layout->addWidget (your_account_label);
 	self_layout->addStretch ();
@@ -747,7 +747,7 @@ wallet (wallet_a)
 			show_line_ok (*account_line);
 			this->history.refresh ();
 			auto balance (this->wallet.node.balance_pending (account));
-			auto final_text (std::string ("Balance (NANO): ") + wallet.format_balance (balance.first));
+			auto final_text (std::string ("Balance (OSLO): ") + wallet.format_balance (balance.first));
 			if (!balance.second.is_zero ())
 			{
 				final_text += "\nPending: " + wallet.format_balance (balance.second);
@@ -1432,7 +1432,7 @@ void nano_qt::wallet::change_rendering_ratio (nano::uint128_t const & rendering_
 std::string nano_qt::wallet::format_balance (nano::uint128_t const & balance) const
 {
 	auto balance_str = nano::amount (balance).format_balance (rendering_ratio, 3, false);
-	auto unit = std::string ("NANO");
+	auto unit = std::string ("OSLO");
 	if (rendering_ratio == nano::kxrb_ratio)
 	{
 		unit = std::string ("knano");
