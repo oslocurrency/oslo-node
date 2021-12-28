@@ -70,14 +70,13 @@ bool oslo::public_key::decode_account (std::string const & source_a)
 	auto error (source_a.size () < 5);
 	if (!error)
 	{
-		auto xrb_prefix (source_a[0] == 'x' && source_a[1] == 'r' && source_a[2] == 'b' && (source_a[3] == '_' || source_a[3] == '-'));
-		auto oslo_prefix (source_a[0] == 'n' && source_a[1] == 'a' && source_a[2] == 'n' && source_a[3] == 'o' && (source_a[4] == '_' || source_a[4] == '-'));
-		error = (xrb_prefix && source_a.size () != 64) || (oslo_prefix && source_a.size () != 65);
+		auto oslo_prefix (source_a[0] == 'o' && source_a[1] == 's' && source_a[2] == 'l' && source_a[3] == 'o' && (source_a[4] == '_' || source_a[4] == '-'));
+		error = (oslo_prefix && source_a.size () != 65);
 		if (!error)
 		{
-			if (xrb_prefix || oslo_prefix)
+			if (oslo_prefix)
 			{
-				auto i (source_a.begin () + (xrb_prefix ? 4 : 5));
+				auto i (source_a.begin () + (oslo_prefix ? 5 : 0));
 				if (*i == '1' || *i == '3')
 				{
 					oslo::uint512_t number_l;

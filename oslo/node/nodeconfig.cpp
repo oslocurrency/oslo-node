@@ -15,8 +15,8 @@ namespace
 const char * preconfigured_peers_key = "preconfigured_peers";
 const char * signature_checker_threads_key = "signature_checker_threads";
 const char * pow_sleep_interval_key = "pow_sleep_interval";
-const char * default_beta_peer_network = "peering-beta.oslo.org";
-const char * default_live_peer_network = "peering.oslo.org";
+const char * default_beta_peer_network = "peering-beta.oslo.vidaru.org";
+const char * default_live_peer_network = "peering.oslo.vidaru.org";
 }
 
 oslo::node_config::node_config () :

@@ -28,14 +28,14 @@ oslo::oslo_networks oslo::network_constants::active_network = oslo::oslo_network
 namespace
 {
 char const * test_private_key_data = "34F0A37AAD20F4A260F0A5B3CB3D7FB50673212263E58A380BC10474BB039CE4";
-char const * test_public_key_data = "B0311EA55708D6A53C75CDBF88300259C6D018522FE3D4D0A242E431F9E8B6D0"; // xrb_3e3j5tkog48pnny9dmfzj1r16pg8t1e76dz5tmac6iq689wyjfpiij4txtdo
-char const * beta_public_key_data = "259A4394DB16B1FFE5568476655E844BA59E8EB5D222F20D42E50684D0C16B54"; // oslo_1betagcfp7ojzzkof35peohaakx7mt9ddnj4ya8n7sa8imae4ttnm16dm753
-char const * live_public_key_data = "E89208DD038FBB269987689621D52292AE9C35941A7484756ECCED92A65093BA"; // xrb_3t6k35gi95xu6tergt6p69ck76ogmitsa8mnijtpxm9fkcm736xtoncuohr3
+char const * test_public_key_data = "B0311EA55708D6A53C75CDBF88300259C6D018522FE3D4D0A242E431F9E8B6D0"; // oslo_3e3j5tkog48pnny9dmfzj1r16pg8t1e76dz5tmac6iq689wyjfpiij4txtdo
+char const * beta_public_key_data = "259A44787AE60E2E241C01BE4CB72F6BBB5B4552F8D0AC23477AB2560D3FA138"; // oslo_1betajw9osig7rk3r1fybkukytxudf4o7y8ioijngyokcr8mzabrup3jcktw
+char const * live_public_key_data = "658C588F0EF8884530A3973E70AED17C9C6C76DEEC9C4D18571A875715D36460"; // oslo_1seed49ixy6aanrc97syg4qf4z6wfjufxu6wbne7g8n9cwcx8s51eiz1jgaa
 char const * test_genesis_data = R"%%%({
 	"type": "open",
 	"source": "B0311EA55708D6A53C75CDBF88300259C6D018522FE3D4D0A242E431F9E8B6D0",
-	"representative": "xrb_3e3j5tkog48pnny9dmfzj1r16pg8t1e76dz5tmac6iq689wyjfpiij4txtdo",
-	"account": "xrb_3e3j5tkog48pnny9dmfzj1r16pg8t1e76dz5tmac6iq689wyjfpiij4txtdo",
+	"representative": "oslo_3e3j5tkog48pnny9dmfzj1r16pg8t1e76dz5tmac6iq689wyjfpiij4txtdo",
+	"account": "oslo_3e3j5tkog48pnny9dmfzj1r16pg8t1e76dz5tmac6iq689wyjfpiij4txtdo",
 	"work": "7b42a00ee91d5810",
 	"signature": "ECDA914373A2F0CA1296475BAEE40500A7F0A7AD72A5A80C81D7FAB7F6C802B2CC7DB50F5DD0FB25B2EF11761FA7344A158DD5A700B21BD47DE5BD0F63153A02"
 	})%%%";
@@ -43,19 +43,19 @@ char const * test_genesis_data = R"%%%({
 char const * beta_genesis_data = R"%%%({
 	"type": "open",
 	"source": "259A4394DB16B1FFE5568476655E844BA59E8EB5D222F20D42E50684D0C16B54",
-	"representative": "oslo_1betagcfp7ojzzkof35peohaakx7mt9ddnj4ya8n7sa8imae4ttnm16dm753",
-	"account": "oslo_1betagcfp7ojzzkof35peohaakx7mt9ddnj4ya8n7sa8imae4ttnm16dm753",
+	"representative": "oslo_1betajw9osig7rk3r1fybkukytxudf4o7y8ioijngyokcr8mzabrup3jcktw",
+	"account": "oslo_1betajw9osig7rk3r1fybkukytxudf4o7y8ioijngyokcr8mzabrup3jcktw",
 	"work": "7f5c2eb5e2658e81",
 	"signature": "DB9EFAC98A28EEA048E722F91C2A2720E1D8EF2A81453C80FC53B453180C0A264CE021D38D5B4540B1BBB0C378B80F2DF7389027593C08DDEF9F47934B9CF805"
 	})%%%";
 
 char const * live_genesis_data = R"%%%({
-	"type": "open",
-	"source": "E89208DD038FBB269987689621D52292AE9C35941A7484756ECCED92A65093BA",
-	"representative": "xrb_3t6k35gi95xu6tergt6p69ck76ogmitsa8mnijtpxm9fkcm736xtoncuohr3",
-	"account": "xrb_3t6k35gi95xu6tergt6p69ck76ogmitsa8mnijtpxm9fkcm736xtoncuohr3",
-	"work": "62f05417dd3fb691",
-	"signature": "9F0C933C8ADE004D808EA1985FA746A7E95BA2A38F867640F53EC8F180BDFE9E2C1268DEAD7C2664F356E37ABA362BC58E46DBA03E523A7B5A19E4B6EB12BB02"
+    "type": "open",
+    "source": "658C588F0EF8884530A3973E70AED17C9C6C76DEEC9C4D18571A875715D36460",
+    "representative": "nano_1seed49ixy6aanrc97syg4qf4z6wfjufxu6wbne7g8n9cwcx8s51eiz1jgaa",
+    "account": "nano_1seed49ixy6aanrc97syg4qf4z6wfjufxu6wbne7g8n9cwcx8s51eiz1jgaa",
+    "work": "b3b778577e923c35",
+    "signature": "867662FE7CF58F29E75E8DFA9EF15FDD0D47481F694AA080F5B36E0DCCF80EAA6DF656F00054212F4E8107F30FB112428B4CB81516B0EDEC14193D21191A6209"
 	})%%%";
 
 std::shared_ptr<oslo::block> parse_block_from_genesis_data (std::string const & genesis_data_a)
