@@ -1553,6 +1553,7 @@ wallet (wallet_a)
 	});
 	QObject::connect (change_rep, &QPushButton::released, [this]() {
 		oslo::account representative_l;
+        std::cout << new_representative->text().toStdString() << std::endl;
 		if (!representative_l.decode_account (new_representative->text ().toStdString ()))
 		{
 			auto transaction (this->wallet.wallet_m->wallets.tx_begin_read ());

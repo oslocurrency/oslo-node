@@ -52,8 +52,8 @@ char const * beta_genesis_data = R"%%%({
 char const * live_genesis_data = R"%%%({
     "type": "open",
     "source": "658C588F0EF8884530A3973E70AED17C9C6C76DEEC9C4D18571A875715D36460",
-    "representative": "nano_1seed49ixy6aanrc97syg4qf4z6wfjufxu6wbne7g8n9cwcx8s51eiz1jgaa",
-    "account": "nano_1seed49ixy6aanrc97syg4qf4z6wfjufxu6wbne7g8n9cwcx8s51eiz1jgaa",
+    "representative": "oslo_1seed49ixy6aanrc97syg4qf4z6wfjufxu6wbne7g8n9cwcx8s51eiz1jgaa",
+    "account": "oslo_1seed49ixy6aanrc97syg4qf4z6wfjufxu6wbne7g8n9cwcx8s51eiz1jgaa",
     "work": "b3b778577e923c35",
     "signature": "867662FE7CF58F29E75E8DFA9EF15FDD0D47481F694AA080F5B36E0DCCF80EAA6DF656F00054212F4E8107F30FB112428B4CB81516B0EDEC14193D21191A6209"
 	})%%%";
