@@ -93,30 +93,6 @@ void oslo::json_handler::process_request (bool unsafe_a)
 				request.put ("head", request.get<std::string> ("hash"));
 				account_history ();
 			}
-			else if (action == "koslo_from_raw" || action == "krai_from_raw")
-			{
-				moslo_from_raw (oslo::kxrb_ratio);
-			}
-			else if (action == "koslo_to_raw" || action == "krai_to_raw")
-			{
-				moslo_to_raw (oslo::kxrb_ratio);
-			}
-			else if (action == "oslo_from_raw" || action == "rai_from_raw")
-			{
-				moslo_from_raw (oslo::xrb_ratio);
-			}
-			else if (action == "oslo_to_raw" || action == "rai_to_raw")
-			{
-				moslo_to_raw (oslo::xrb_ratio);
-			}
-			else if (action == "moslo_from_raw" || action == "mrai_from_raw")
-			{
-				moslo_from_raw ();
-			}
-			else if (action == "moslo_to_raw" || action == "mrai_to_raw")
-			{
-				moslo_to_raw ();
-			}
 			else if (action == "password_valid")
 			{
 				password_valid ();

@@ -416,7 +416,7 @@ node_seq (seq)
 				ledger.bootstrap_weights = bootstrap_weights.second;
 				for (auto const & rep : ledger.bootstrap_weights)
 				{
-					logger.always_log ("Using bootstrap rep weight: ", rep.first.to_account (), " -> ", oslo::uint128_union (rep.second).format_balance (Mxrb_ratio, 0, true), " XRB");
+					logger.always_log ("Using bootstrap rep weight: ", rep.first.to_account (), " -> ", oslo::uint128_union (rep.second).format_balance (raw_ratio, 0, true), " OSLO");
 				}
 			}
 
@@ -985,7 +985,7 @@ int oslo::node::price (oslo::uint128_t const & balance_a, int amount_a)
 	for (auto i (0); i < amount_a; ++i)
 	{
 		balance_l -= oslo::Gxrb_ratio;
-		auto balance_scaled ((balance_l / oslo::Mxrb_ratio).convert_to<double> ());
+		auto balance_scaled ((balance_l / oslo::raw_ratio).convert_to<double> ());
 		auto units (balance_scaled / 1000.0);
 		auto unit_price (((free_cutoff - units) / free_cutoff) * price_max);
 		result += std::min (std::max (0.0, unit_price), price_max);

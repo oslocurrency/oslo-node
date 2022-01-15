@@ -66,9 +66,6 @@ public:
 	QHBoxLayout * scale_layout;
 	QLabel * scale_label;
 	QButtonGroup * ratio_group;
-	QRadioButton * moslo_unit;
-	QRadioButton * koslo_unit;
-	QRadioButton * oslo_unit;
 	QRadioButton * raw_unit;
 	QPushButton * back;
 

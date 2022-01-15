@@ -1433,18 +1433,6 @@ std::string oslo_qt::wallet::format_balance (oslo::uint128_t const & balance) co
 {
 	auto balance_str = oslo::amount (balance).format_balance (rendering_ratio, 3, false);
 	auto unit = std::string ("OSLO");
-	if (rendering_ratio == oslo::kxrb_ratio)
-	{
-		unit = std::string ("koslo");
-	}
-	else if (rendering_ratio == oslo::xrb_ratio)
-	{
-		unit = std::string ("oslo");
-	}
-	else if (rendering_ratio == oslo::raw_ratio)
-	{
-		unit = std::string ("raw");
-	}
 	return balance_str + " " + unit;
 }
 
@@ -1726,9 +1714,6 @@ scale_window (new QWidget),
 scale_layout (new QHBoxLayout),
 scale_label (new QLabel ("Scale:")),
 ratio_group (new QButtonGroup),
-moslo_unit (new QRadioButton ("Moslo")),
-koslo_unit (new QRadioButton ("koslo")),
-oslo_unit (new QRadioButton ("oslo")),
 raw_unit (new QRadioButton ("raw")),
 back (new QPushButton ("Back")),
 ledger_window (new QWidget),
@@ -1750,18 +1735,9 @@ peers_refresh (new QPushButton ("Refresh")),
 peers_back (new QPushButton ("Back")),
 wallet (wallet_a)
 {
-	ratio_group->addButton (moslo_unit);
-	ratio_group->addButton (koslo_unit);
-	ratio_group->addButton (oslo_unit);
 	ratio_group->addButton (raw_unit);
-	ratio_group->setId (moslo_unit, 0);
-	ratio_group->setId (koslo_unit, 1);
-	ratio_group->setId (oslo_unit, 2);
 	ratio_group->setId (raw_unit, 3);
 	scale_layout->addWidget (scale_label);
-	scale_layout->addWidget (moslo_unit);
-	scale_layout->addWidget (koslo_unit);
-	scale_layout->addWidget (oslo_unit);
 	scale_layout->addWidget (raw_unit);
 	scale_window->setLayout (scale_layout);
 
@@ -1814,27 +1790,6 @@ wallet (wallet_a)
 	layout->addWidget (back);
 	window->setLayout (layout);
 
-	QObject::connect (moslo_unit, &QRadioButton::toggled, [this]() {
-		if (moslo_unit->isChecked ())
-		{
-			QSettings ().setValue (saved_ratio_key, ratio_group->id (moslo_unit));
-			this->wallet.change_rendering_ratio (oslo::Mxrb_ratio);
-		}
-	});
-	QObject::connect (koslo_unit, &QRadioButton::toggled, [this]() {
-		if (koslo_unit->isChecked ())
-		{
-			QSettings ().setValue (saved_ratio_key, ratio_group->id (koslo_unit));
-			this->wallet.change_rendering_ratio (oslo::kxrb_ratio);
-		}
-	});
-	QObject::connect (oslo_unit, &QRadioButton::toggled, [this]() {
-		if (oslo_unit->isChecked ())
-		{
-			QSettings ().setValue (saved_ratio_key, ratio_group->id (oslo_unit));
-			this->wallet.change_rendering_ratio (oslo::xrb_ratio);
-		}
-	});
 	QObject::connect (raw_unit, &QRadioButton::toggled, [this]() {
 		if (raw_unit->isChecked ())
 		{
@@ -1842,7 +1797,7 @@ wallet (wallet_a)
 			this->wallet.change_rendering_ratio (oslo::raw_ratio);
 		}
 	});
-	auto selected_ratio_id (QSettings ().value (saved_ratio_key, ratio_group->id (moslo_unit)).toInt ());
+	auto selected_ratio_id (QSettings ().value (saved_ratio_key, ratio_group->id (raw_unit)).toInt ());
 	auto selected_ratio_button = ratio_group->button (selected_ratio_id);
 	debug_assert (selected_ratio_button != nullptr);
 
@@ -1852,7 +1807,7 @@ wallet (wallet_a)
 	}
 	else
 	{
-		moslo_unit->click ();
+		raw_unit->click ();
 	}
 	QObject::connect (wallet_refresh, &QPushButton::released, [this]() {
 		this->wallet.accounts.refresh ();

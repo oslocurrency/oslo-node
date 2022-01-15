@@ -8,10 +8,10 @@ using uint128_t = boost::multiprecision::uint128_t;
 using uint256_t = boost::multiprecision::uint256_t;
 using uint512_t = boost::multiprecision::uint512_t;
 // SI dividers
-oslo::uint128_t const Gxrb_ratio = oslo::uint128_t ("1000000000000000000000000000000000"); // 10^33
-oslo::uint128_t const Mxrb_ratio = oslo::uint128_t ("1000000000000000000000000000000"); // 10^30
-oslo::uint128_t const kxrb_ratio = oslo::uint128_t ("1000000000000000000000000000"); // 10^27
-oslo::uint128_t const xrb_ratio = oslo::uint128_t ("1000000000000000000000000"); // 10^24
+oslo::uint128_t const Gxrb_ratio = oslo::uint128_t ("1");
+oslo::uint128_t const Mxrb_ratio = oslo::uint128_t ("1");
+oslo::uint128_t const kxrb_ratio = oslo::uint128_t ("1");
+oslo::uint128_t const xrb_ratio = oslo::uint128_t ("1");
 oslo::uint128_t const raw_ratio = oslo::uint128_t ("1"); // 10^0
 
 class uint128_union

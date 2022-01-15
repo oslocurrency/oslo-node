@@ -31,7 +31,7 @@ else()
 	install (DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../../api/flatbuffers/ DESTINATION ./api/flatbuffers)
 endif()
 
-file(GLOB files "${CMAKE_CURRENT_SOURCE_DIR}/../../api/flatbuffers/osloapi*.fbs")
+file(GLOB files "${CMAKE_CURRENT_SOURCE_DIR}/../../api/flatbuffers/nanoapi*.fbs")
 foreach(file ${files})
 	get_filename_component(flatbuffers_filename ${file} NAME_WE)
 	message("Generating flatbuffers code for: ${flatbuffers_filename} into ${CMAKE_CURRENT_SOURCE_DIR}/generated/flatbuffers")
