@@ -1,4 +1,4 @@
-FROM oslocurrency/oslo-env:gcc
+FROM nanocurrency/nano-env:gcc
 
 ARG NETWORK=live
 ARG TRAVIS_TAG=DEV_BUILD
