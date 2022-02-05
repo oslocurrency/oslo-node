@@ -14,7 +14,7 @@ endif ()
 # and beta weights are added to accommodate switching networks
 # from the command line.
 file(READ ${CMAKE_SOURCE_DIR}/rep_weights_live.bin liveweights HEX)
-string(REGEX REPLACE "(..)" "0x\\1," liveweights ${liveweights})
+#string(REGEX REPLACE "(..)" "0x\\1," liveweights ${liveweights})
 file (WRITE ${CMAKE_BINARY_DIR}/bootstrap_weights_live.cpp "#include <cstddef>\n"
 	"namespace oslo {\n"
 	"	unsigned char oslo_bootstrap_weights_live[] = {${liveweights} 0x00};\n"
@@ -23,7 +23,7 @@ file (WRITE ${CMAKE_BINARY_DIR}/bootstrap_weights_live.cpp "#include <cstddef>\n
 
 if (EXISTS ${CMAKE_SOURCE_DIR}/rep_weights_beta.bin)
 	file(READ ${CMAKE_SOURCE_DIR}/rep_weights_beta.bin betaweights HEX)
-	string(REGEX REPLACE "(..)" "0x\\1," betaweights ${betaweights})
+	#string(REGEX REPLACE "(..)" "0x\\1," betaweights ${betaweights})
 endif ()
 file (WRITE ${CMAKE_BINARY_DIR}/bootstrap_weights_beta.cpp "#include <cstddef>\n"
 	"namespace oslo {\n"
